@@ -17,8 +17,8 @@ import CreatePassword from '../../features/auth/pages/CreatePassword.jsx';
 import ForgotPassword from '../../features/auth/pages/ForgotPassword.jsx';
 
 // Feature Pages - Lazy loaded
-const CreateProfile = lazy(() => import('../../features/patient/profile/pages/CreateProfile.jsx'));
-const PendingApproval = lazy(() => import('../../features/patient/profile/pages/PendingApproval.jsx'));
+import CreateProfile from '../../features/patient/profile/pages/CreateProfile.jsx';
+import PendingApproval from '../../features/patient/profile/pages/PendingApproval.jsx';
 
 // Dashboard Pages - Lazy loaded
 const DashboardView = lazy(() => import('../../features/patient/dashboard/pages/DashboardView.jsx'));

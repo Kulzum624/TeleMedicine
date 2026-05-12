@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import { Input, Button } from '../../../../shared/components/ui';
 import { profileService } from '../api/profileService';
 import { useDispatch } from 'react-redux';
-import { setApprovalStatus } from '../../../auth/store/authSlice';
+import { setApprovalStatus, fetchCurrentUser } from '../../../auth/store/authSlice';
 
 const CreateProfile = () => {
   const navigate = useNavigate();
@@ -49,9 +49,15 @@ const CreateProfile = () => {
       };
 
       await profileService.createProfile(payload);
+      
+      // CRITICAL: Fetch the full user profile immediately after creation.
+      // This ensures that firstName/lastName are synced to Redux so ProtectedRoute
+      // recognizes the profile as "not missing" and allows navigation.
+      await dispatch(fetchCurrentUser());
+      
       toast.success('Profile created successfully! Pending admin approval.');
       dispatch(setApprovalStatus('PENDING_APPROVAL'));
-      navigate('/dashboard');
+      navigate('/pending-approval');
     } catch (err) {
       toast.error(err.response?.data?.message || 'Failed to create profile');
     } finally {
