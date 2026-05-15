@@ -1,11 +1,6 @@
 import { createContext, useContext } from 'react';
 
-/**
- * Split context pattern:
- * State and Dispatch are separated to prevent unnecessary re-renders.
- * Components that only need to update the header won't re-render 
- * when the header content itself changes.
- */
+
 
 export const DashboardStateContext = createContext();
 export const DashboardDispatchContext = createContext();

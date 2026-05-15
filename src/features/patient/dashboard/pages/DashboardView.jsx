@@ -1,7 +1,25 @@
-export default function DashboardView() {
+import { memo, lazy, Suspense } from 'react';
+import QuickActions from '../components/QuickActions';
+import DashboardStats from '../components/DashboardStats';
+import DoctorBanner from '../components/DoctorBanner';
+import UpcomingAppointments from '../components/UpcomingAppointments';
+
+const DashboardView = () => {
     return (
-        <div className="p-8 bg-white rounded-2xl shadow-sm border border-gray-100 min-h-[400px] flex items-center justify-center">
-            <h1 className="text-3xl font-bold text-gray-900 font-sans tracking-tight">Dashboard</h1>
+        <div className="flex flex-col animate-in fade-in slide-in-from-bottom-4 duration-700">
+            
+            <QuickActions />
+
+            
+            <DashboardStats />
+
+            
+            <DoctorBanner />
+
+            
+            <UpcomingAppointments />
         </div>
     );
-}
+};
+
+export default memo(DashboardView);

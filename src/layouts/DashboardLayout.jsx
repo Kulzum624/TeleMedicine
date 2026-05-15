@@ -7,23 +7,29 @@ import Sidebar from './components/Sidebar';
 import Header from './components/Header';
 import {
     LayoutDashboard,
+    Bell,
     Activity,
+    FileSearch,
     Users,
     Calendar,
     FileText,
     Bot,
     MessageSquare,
+    UserPlus,
     History
 } from 'lucide-react';
 
 const NAV_ITEMS = [
     { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
+    { path: '/notifications', label: 'Notifications', icon: Bell },
     { path: '/health-logs', label: 'Health Logs', icon: Activity },
+    { path: '/lab-reports', label: 'Lab Reports', icon: FileSearch },
     { path: '/book-doctors', label: 'Book Doctors', icon: Users },
     { path: '/appointments', label: 'Appointments', icon: Calendar },
     { path: '/prescription', label: 'Prescription', icon: FileText },
-    { path: '/ai-triage', label: 'Ai triage', icon: Bot },
+    { path: '/ai-triage', label: 'AI triage', icon: Bot },
     { path: '/messages', label: 'Messages', icon: MessageSquare },
+    { path: '/referrals', label: 'Referrals', icon: UserPlus },
     { path: '/transactions', label: 'Transaction History', icon: History },
 ];
 
@@ -40,7 +46,7 @@ const DashboardLayout = () => {
         navigate('/login');
     }, [dispatch, navigate]);
 
-    // Split context values for optimization
+
     const stateValue = useMemo(() => ({
         headerContent,
         user
@@ -50,37 +56,32 @@ const DashboardLayout = () => {
         setHeaderContent
     }), []);
 
-    // Format display name
+
     const displayName = useMemo(() => {
         if (!user) return 'User';
-        return user.firstName 
-            ? `${user.firstName}${user.lastName ? ' ' + user.lastName : ''}`
-            : user.first_name 
-                ? `${user.first_name}${user.last_name ? ' ' + user.last_name : ''}`
-                : user.name 
-                    || user.email?.split('@')[0] 
-                    || 'User';
+        return user.firstName
     }, [user]);
 
     return (
         <DashboardDispatchContext.Provider value={dispatchValue}>
             <DashboardStateContext.Provider value={stateValue}>
                 <div className="flex h-screen bg-[#F8F9FB] overflow-hidden">
-                    {/* Sidebar */}
-                    <Sidebar navItems={NAV_ITEMS} onLogout={handleLogout} />
+                    
+                    <Sidebar navItems={NAV_ITEMS} />
 
-                    {/* Main Content */}
+                    
                     <main className="flex-1 flex flex-col h-full overflow-hidden">
-                        {/* Top Header */}
+                        
                         <Header 
                             headerContent={headerContent} 
                             user={user} 
                             loading={loading} 
-                            displayName={displayName} 
+                            displayName={displayName}
+                            onLogout={handleLogout}
                         />
 
-                        {/* Scrollable Page Content */}
-                        <div className="flex-1 overflow-auto px-8 pb-8">
+                        
+                        <div className="flex-1 overflow-auto px-10 pb-8">
                             <Outlet />
                         </div>
                     </main>

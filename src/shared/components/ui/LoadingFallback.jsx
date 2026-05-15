@@ -1,14 +1,11 @@
 import React from 'react';
 
-/**
- * A premium loading fallback component for Suspense.
- * Uses standard CSS for animations to ensure reliability across all environments.
- */
+
 const LoadingFallback = () => {
   return (
     <div className="fixed inset-0 z-[9999] flex items-center justify-center bg-white/90 backdrop-blur-sm">
       <div className="flex flex-col items-center">
-        {/* Spinner */}
+        
         <div className="relative h-16 w-16">
           <div className="absolute inset-0 animate-ping rounded-full bg-[#c62828]/20"></div>
           <div className="relative flex h-16 w-16 items-center justify-center rounded-full bg-white shadow-xl">
@@ -19,7 +16,7 @@ const LoadingFallback = () => {
           </div>
         </div>
         
-        {/* Text */}
+        
         <div className="mt-6 flex flex-col items-center gap-2">
           <span className="text-xs font-bold tracking-[0.2em] text-gray-400 uppercase">
             NAS Telemedicine

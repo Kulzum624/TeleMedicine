@@ -24,3 +24,7 @@ Telemedicine.postman_collection.json
 *.njsproj
 *.sln
 *.sw?
+
+.env
+.env.*
+!.env.example

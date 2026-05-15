@@ -16,11 +16,11 @@ const initialState = {
     loading: false,
     error: null,
     
-    // Auth Flow State
+
     tempEmail: null,
     tempOtp: null,
     otpVerified: false,
-    approvalStatus: null, // e.g. PENDING_APPROVAL, PENDING_VERIFICATION
+    approvalStatus: null,
 };
 
 export const signupUser = createAsyncThunk('auth/signup', async (data, thunkAPI) => {
@@ -53,7 +53,7 @@ export const verifyOtpUser = createAsyncThunk('auth/verifyOtp', async (data, thu
 export const createPasswordUser = createAsyncThunk('auth/createPassword', async (data, thunkAPI) => {
     try {
         const response = await authService.createPassword(data);
-        return response.data; // expecting { accessToken, user }
+        return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to create password');
     }
@@ -62,7 +62,7 @@ export const createPasswordUser = createAsyncThunk('auth/createPassword', async 
 export const loginUser = createAsyncThunk('auth/login', async (credentials, thunkAPI) => {
     try {
         const response = await authService.login(credentials);
-        return response.data; // expecting { accessToken, user }
+        return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(
             error.response?.data?.message || 'Invalid credentials'
@@ -75,7 +75,7 @@ export const fetchCurrentUser = createAsyncThunk('auth/fetchCurrentUser', async 
         const state = thunkAPI.getState();
         const role = state.auth.user?.role;
         const response = await authService.getCurrentProfile(role);
-        return response.data; // The actual user profile data
+        return response.data;
     } catch (error) {
         return thunkAPI.rejectWithValue(error.response?.data?.message || 'Failed to fetch user profile');
     }
@@ -111,7 +111,7 @@ const authSlice = createSlice({
         }
     },
     extraReducers: (builder) => {
-        // Signup
+
         builder.addCase(signupUser.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -125,7 +125,7 @@ const authSlice = createSlice({
             state.error = action.payload;
         });
 
-        // Forgot Password
+
         builder.addCase(forgotPasswordRequest.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -133,14 +133,14 @@ const authSlice = createSlice({
         builder.addCase(forgotPasswordRequest.fulfilled, (state, action) => {
             state.loading = false;
             state.tempEmail = action.payload.email;
-            state.otpVerified = false; // reset this flag just in case
+            state.otpVerified = false;
         });
         builder.addCase(forgotPasswordRequest.rejected, (state, action) => {
             state.loading = false;
             state.error = action.payload;
         });
 
-        // Verify OTP
+
         builder.addCase(verifyOtpUser.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -154,7 +154,7 @@ const authSlice = createSlice({
             state.error = action.payload;
         });
 
-        // Create Password
+
         builder.addCase(createPasswordUser.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -174,7 +174,7 @@ const authSlice = createSlice({
             state.error = action.payload;
         });
 
-        // Login
+
         builder.addCase(loginUser.pending, (state) => {
             state.loading = true;
             state.error = null;
@@ -195,13 +195,13 @@ const authSlice = createSlice({
             state.error = action.payload;
         });
 
-        // Fetch Current User
+
         builder.addCase(fetchCurrentUser.pending, (state) => {
             state.loading = true;
         });
         builder.addCase(fetchCurrentUser.fulfilled, (state, action) => {
             state.loading = false;
-            // Merge existing user data (like role) with full profile data
+
             state.user = { ...state.user, ...action.payload };
             if (state.user) {
                 localStorage.setItem('user', JSON.stringify(state.user));
@@ -216,7 +216,7 @@ const authSlice = createSlice({
 
 export const { logout, setTempEmail, setTempOtp, clearAuthError, setApprovalStatus } = authSlice.actions;
 
-// Selectors
+
 const selectAuth = (state) => state.auth;
 
 export const selectUser = createSelector(

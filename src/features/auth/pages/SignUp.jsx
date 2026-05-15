@@ -8,7 +8,7 @@ import logo from '../../../assets/logo.png';
 
 const SignUp = () => {
   const [email, setEmail] = useState('');
-  const [step, setStep] = useState(1); // 1: Selection, 2: Email Input
+  const [step, setStep] = useState(1);
   const [role, setRole] = useState('PATIENT');
   
   const dispatch = useDispatch();

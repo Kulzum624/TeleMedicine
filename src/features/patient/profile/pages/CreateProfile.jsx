@@ -50,9 +50,9 @@ const CreateProfile = () => {
 
       await profileService.createProfile(payload);
       
-      // CRITICAL: Fetch the full user profile immediately after creation.
-      // This ensures that firstName/lastName are synced to Redux so ProtectedRoute
-      // recognizes the profile as "not missing" and allows navigation.
+
+
+
       await dispatch(fetchCurrentUser());
       
       toast.success('Profile created successfully! Pending admin approval.');

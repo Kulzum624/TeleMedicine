@@ -15,12 +15,12 @@ export const OTPInput = memo(({ length = 6, onComplete, className }) => {
             const next = [...prev];
             next[index] = digit;
 
-            // Focus next input
+
             if (digit !== '' && index < length - 1) {
                 inputRefs.current[index + 1].focus();
             }
 
-            // Trigger onComplete
+
             const newOtp = next.join('');
             if (onComplete) {
                 onComplete(newOtp);
@@ -31,7 +31,7 @@ export const OTPInput = memo(({ length = 6, onComplete, className }) => {
     }, [length, onComplete]);
 
     const handleKeyDown = useCallback((e, index) => {
-        // Focus previous input on backspace
+
         if (e.key === 'Backspace' && !otp[index] && index > 0) {
             inputRefs.current[index - 1].focus();
         }

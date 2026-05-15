@@ -4,23 +4,23 @@ import { Routes, Route, Navigate } from 'react-router-dom';
 import { fetchCurrentUser, selectIsAuthenticated, selectAuthToken } from '../../features/auth/store/authSlice';
 import { LoadingFallback } from '../../shared/components/ui/index.jsx';
 
-// Layouts - Static imports for stability
+
 import AuthLayout from '../../layouts/AuthLayout.jsx';
 import ProtectedRoute from '../../layouts/ProtectedRoute.jsx';
 import DashboardLayout from '../../layouts/DashboardLayout.jsx';
 
-// Core Auth Pages - Static imports to prevent loading issues in the auth flow
+
 import Login from '../../features/auth/pages/Login.jsx';
 import SignUp from '../../features/auth/pages/SignUp.jsx';
 import VerifyOTP from '../../features/auth/pages/VerifyOTP.jsx';
 import CreatePassword from '../../features/auth/pages/CreatePassword.jsx';
 import ForgotPassword from '../../features/auth/pages/ForgotPassword.jsx';
 
-// Feature Pages - Lazy loaded
+
 import CreateProfile from '../../features/patient/profile/pages/CreateProfile.jsx';
 import PendingApproval from '../../features/patient/profile/pages/PendingApproval.jsx';
 
-// Dashboard Pages - Lazy loaded
+
 const DashboardView = lazy(() => import('../../features/patient/dashboard/pages/DashboardView.jsx'));
 const HealthLogs = lazy(() => import('../../features/patient/healthLogs/pages/HealthLogs.jsx'));
 const Transactions = lazy(() => import('../../features/patient/wallet/pages/Transactions.jsx'));
@@ -29,6 +29,9 @@ const Appointments = lazy(() => import('../../features/patient/appointments/page
 const Messages = lazy(() => import('../../features/patient/messages/pages/Messages.jsx'));
 const BookDoctors = lazy(() => import('../../features/patient/bookDoctors/pages/BookDoctors.jsx'));
 const Prescription = lazy(() => import('../../features/patient/prescription/pages/Prescription.jsx'));
+const Notifications = lazy(() => import('../../features/patient/notifications/pages/notifications.jsx'));
+const LabReport = lazy(() => import('../../features/patient/labReports/pages/labReport.jsx'));
+const Referrals = lazy(() => import('../../features/patient/referrals/pages/referrals.jsx'));
 
 export const AppRouter = () => {
   const dispatch = useDispatch();
@@ -44,7 +47,7 @@ export const AppRouter = () => {
   return (
     <Suspense fallback={<LoadingFallback />}>
       <Routes>
-        {/* Auth Routes */}
+        
         <Route element={<AuthLayout />}>
           <Route path="/" element={<Navigate to="/login" replace />} />
           <Route path="/login" element={<Login />} />
@@ -54,13 +57,13 @@ export const AppRouter = () => {
           <Route path="/forgot-password" element={<ForgotPassword />} />
         </Route>
 
-        {/* Protected Routes */}
+        
         <Route element={<ProtectedRoute />}>
-          {/* Onboarding Pages (No Sidebar/Layout) */}
+          
           <Route path="/create-profile" element={<CreateProfile />} />
           <Route path="/pending-approval" element={<PendingApproval />} />
 
-          {/* Main Application (With Dashboard Layout) */}
+          
           <Route element={<DashboardLayout />}>
             <Route path="/dashboard" element={<DashboardView />} />
             <Route path="/health-logs" element={<HealthLogs />} />
@@ -70,10 +73,13 @@ export const AppRouter = () => {
             <Route path="/messages" element={<Messages />} />
             <Route path="/book-doctors" element={<BookDoctors />} />
             <Route path="/prescription" element={<Prescription />} />
+            <Route path="/notifications" element={<Notifications />} />
+            <Route path="/lab-reports" element={<LabReport />} />
+            <Route path="/referrals" element={<Referrals />} />
           </Route>
         </Route>
 
-        {/* Fallback */}
+        
         <Route path="*" element={<Navigate to="/login" replace />} />
       </Routes>
     </Suspense>

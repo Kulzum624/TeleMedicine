@@ -7,7 +7,7 @@ const axiosInstance = axios.create({
     },
 });
 
-// Request Interceptor
+
 axiosInstance.interceptors.request.use(
     (config) => {
         const token = localStorage.getItem('accessToken');
@@ -21,15 +21,15 @@ axiosInstance.interceptors.request.use(
     }
 );
 
-// Response Interceptor
+
 axiosInstance.interceptors.response.use(
     (response) => response,
     (error) => {
-        // We will handle 401 unauth in the application logic
+
         if (error.response && error.response.status === 401) {
             localStorage.removeItem('accessToken');
             localStorage.removeItem('user');
-            // Can dispatch logout event here or let component handle it
+
         }
         return Promise.reject(error);
     }

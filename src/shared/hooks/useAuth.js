@@ -12,10 +12,7 @@ import {
     fetchCurrentUser
 } from '../../features/auth/store/authSlice';
 
-/**
- * Custom hook to manage authentication logic and state.
- * Provides memoized handlers and granular state selection.
- */
+
 export const useAuth = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();

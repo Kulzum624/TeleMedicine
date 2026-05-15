@@ -65,3 +65,4 @@ Input.displayName = "Input";
 
 export { OTPInput } from './OTPInput';
 export { default as LoadingFallback } from './LoadingFallback';
+export { default as DonutChart } from './DonutChart';

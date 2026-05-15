@@ -9,7 +9,7 @@ export const AppProvider = ({ children }) => {
     <StrictMode>
       <Provider store={store}>
         <BrowserRouter>
-          <Toaster position="top-right" />
+          <Toaster position="bottom" />
           {children}
         </BrowserRouter>
       </Provider>
